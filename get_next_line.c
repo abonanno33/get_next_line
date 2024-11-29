@@ -6,7 +6,7 @@
 /*   By: abonanno <abonanno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:28:32 by abonanno          #+#    #+#             */
-/*   Updated: 2024/11/29 13:21:01 by abonanno         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:20:05 by abonanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,14 @@ char	*get_next_line(int fd)
     ssize_t		rd;
     ssize_t		rd_total;
 
+	if(fd < 0)
+		return NULL;
     str = ft_calloc(1, BUFFER_SIZE + 1);
     if(str == NULL)
         return (NULL);
-    if (save == NULL)
+    if (save != NULL)
     {
-        save = ft_calloc(1, BUFFER_SIZE + 1);
-        if(save == NULL)
-            return (NULL);
-    }
-    else
-    {
-        if(str)
+		if(str)
             free(str);
         str = ft_strdup(save);
         if(str == NULL)
@@ -69,9 +65,10 @@ char	*get_next_line(int fd)
             	free(save);
             save = ft_strdup(&chr[1]);
             chr[1] = '\0';
+			str = ft_realloc(str, ft_strlen(str) + 1);
             return (str);
         }
-        rd = read(fd, &str[ft_strlen(str)], BUFFER_SIZE);
+        rd = read(fd, &str[rd_total], BUFFER_SIZE);
         rd_total += rd;
         str = ft_realloc(str, BUFFER_SIZE + rd_total + 1);
         if(str == NULL)
@@ -79,20 +76,31 @@ char	*get_next_line(int fd)
     }
 	if (rd == 0 && str[0] != '\0')
 	{
+		if(save)
+			free(save);
+		save = NULL;
+		str = ft_realloc(str, ft_strlen(str) + 1);
 		return (str);
 	}
+	if(rd == -1 || rd == 0)
+	{
+		free(str);
+		return (NULL);
+	}
+	free(str);
     return NULL;
 }
 
-int main()
-{
-    int fd = open("fd.txt", O_RDONLY);
-    char *str = get_next_line(fd);
-    while (str != NULL)
-    {
-        printf("%s", str);
-        free(str);
-        str = get_next_line(fd);
-    }
-    close(fd);
-}
+// int main()
+// {
+//     int fd = open("fd.txt", O_RDONLY);
+//     char *str = get_next_line(fd);
+//     while (str != NULL)
+//     {
+//         printf("%s", str);
+//         free(str);
+//         str = get_next_line(fd);
+//     }
+// 	free(str);
+//     close(fd);
+// }
