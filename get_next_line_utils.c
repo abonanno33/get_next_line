@@ -6,12 +6,11 @@
 /*   By: abonanno <abonanno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:57:45 by abonanno          #+#    #+#             */
-/*   Updated: 2024/11/29 18:54:40 by abonanno         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:12:27 by abonanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <string.h>
 #include <stdio.h>
 
 size_t	ft_strlen(const char *s)
@@ -82,45 +81,29 @@ void	*ft_bzero(void *str, unsigned long int n)
 	return (str);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_realloc(unsigned char *ptr, size_t size)
 {
+	unsigned char	*new_ptr;
 	size_t			i;
-	unsigned char	*i_dest;
-	unsigned char	*i_src;
 
-	i_dest = (unsigned char *) dest;
-	i_src = (unsigned char *) src;
-	i = 0;
-	while (i < n && i_src[i])
+	if (size == 0)
 	{
-		i_dest[i] = i_src[i];
-		i++;
-	}
-	return (dest);
-}
-void *ft_realloc(void *ptr, size_t size)
-{
-	void *new_ptr;
-	if(ptr == NULL && size == 0)
-		return NULL;
-	if(ptr == NULL && size != 0){
-		new_ptr = malloc(size);
-		return ft_bzero(new_ptr, size);
-	}
-	if(ptr != NULL && size == 0)
-	{
-		free(ptr);
+		if (ptr)
+			free(ptr);
 		return (NULL);
 	}
 	new_ptr = malloc(size);
+	if (new_ptr == NULL)
+		return (NULL);
 	new_ptr = ft_bzero(new_ptr, size);
-	if(new_ptr == 0)
-		return NULL;
-	if(ptr != NULL && size != 0)
+	if (ptr == NULL)
+		return (new_ptr);
+	i = 0;
+	while (i < size && ptr[i])
 	{
-		ft_memcpy(new_ptr, ptr, size);
-		free(ptr);
-		return new_ptr;
+		new_ptr[i] = ptr[i];
+		i++;
 	}
-	return NULL;
+	free(ptr);
+	return (new_ptr);
 }

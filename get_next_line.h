@@ -6,7 +6,7 @@
 /*   By: abonanno <abonanno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 19:01:18 by abonanno          #+#    #+#             */
-/*   Updated: 2024/11/29 18:30:03 by abonanno         ###   ########.fr       */
+/*   Updated: 2024/11/29 23:15:49 by abonanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	*ft_bzero(void *str, unsigned long int n);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-void	*ft_realloc(void *ptr, size_t size);
+void	*ft_realloc(unsigned char *ptr, size_t size);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strchr(const char *s, int c);
