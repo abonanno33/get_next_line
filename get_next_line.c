@@ -6,7 +6,7 @@
 /*   By: abonanno <abonanno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:28:32 by abonanno          #+#    #+#             */
-/*   Updated: 2024/11/30 00:45:11 by abonanno         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:45:23 by abonanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,3 @@ char	*get_next_line(int fd)
 		return (result);
 	return (finalize_result(&str, &save[fd], 0));
 }
-t 
