@@ -6,7 +6,7 @@
 /*   By: abonanno <abonanno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 19:01:18 by abonanno          #+#    #+#             */
-/*   Updated: 2024/11/27 16:04:42 by abonanno         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:08:28 by abonanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 6
+#  define BUFFER_SIZE 1
 # endif
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);

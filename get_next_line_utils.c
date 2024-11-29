@@ -6,7 +6,7 @@
 /*   By: abonanno <abonanno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:57:45 by abonanno          #+#    #+#             */
-/*   Updated: 2024/11/27 16:18:14 by abonanno         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:15:39 by abonanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
     i_dest = (unsigned char *) dest;
     i_src = (unsigned char *) src;
     i = 0;
-    while (i < n)
+    while (i < n && i_src[i])
     {
         i_dest[i] = i_src[i];
         i++;
@@ -142,13 +142,13 @@ void *ft_realloc(void *ptr, size_t size)
     if(ptr == NULL && size == 0)
         return NULL;
     if(ptr == NULL && size != 0)
-        return malloc(size);
+        return ft_calloc(1, size);
     if(ptr != NULL && size == 0)
     {
         free(ptr);
         return (NULL);
     }
-    new_ptr = malloc(size);
+    new_ptr = ft_calloc(1, size);
     if(new_ptr == 0)
         return NULL;
     if(ptr != NULL && size != 0)
@@ -158,34 +158,4 @@ void *ft_realloc(void *ptr, size_t size)
         return new_ptr;
     }
     return NULL;
-}
-
-int	app_get_next_line(char **str, char **save, ssize_t rd, int i)
-{
-    char	*chr_res;
-    size_t	new_len;
-
-    if (rd == -1)
-        return (-1);
-    if (rd < BUFFER_SIZE)
-    {
-        *str = ft_realloc(*str, (BUFFER_SIZE * i) + rd + 1);
-        if (*str == NULL)
-            return (-1);
-        (*str)[(BUFFER_SIZE * i) + rd] = '\0';
-        return (0);
-    }
-    chr_res = ft_strchr(*str, '\n');
-    if (chr_res != NULL)
-    {
-        new_len = chr_res - *str + 1;
-        *str = ft_realloc(*str, new_len + 1);
-        if (*str == NULL)
-            return (-1);
-        chr_res = *str + (chr_res - *str); // Update chr_res to the new location
-        *save = ft_strdup(chr_res + 1);
-        (*str)[new_len] = '\0';
-        return (0);
-    }
-    return (1);
 }
